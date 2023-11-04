@@ -4,7 +4,10 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
+import com.umgprogra.finanzasapp.data.database.entities.BillEntity
 import com.umgprogra.finanzasapp.data.database.entities.IncomeEntity
+import java.util.UUID
 
 @Dao
 interface IncomeDao {
@@ -19,6 +22,12 @@ interface IncomeDao {
 
     @Insert
     suspend fun insertAll(vararg incomes: IncomeEntity)
+
+    @Update
+    suspend fun update(income: IncomeEntity)
+
+    @Query("DELETE FROM income_table WHERE uidIncome IN (:incomeId)")
+    suspend fun deleteById(incomeId: UUID)
 
     @Delete
     suspend fun delete(income: IncomeEntity)
